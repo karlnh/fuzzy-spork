@@ -4,7 +4,7 @@ const inq = require('inquirer');
 
 require('dotenv').config();
 
-const { mainPrompt } = require('./resources/prompts');
+const { mainPrompt, addEmployee, addRole, addDepartment } = require('./resources/prompts');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -34,6 +34,7 @@ const mainMenu = () => {
     inq.prompt(mainPrompt)
     .then(answer => {
         switch (answer.main) {
+            // Views
             case 'View All Employees':
                 db.query('SELECT * from employee', (err, results) => {
                     console.log('\n');
@@ -50,6 +51,52 @@ const mainMenu = () => {
                     : console.table(results);
                 });
                 break;
+            case 'View All Departments':
+                db.query('SELECT * from department', (err, results) => {
+                    console.log('\n');
+                    err
+                    ? console.log(err)
+                    : console.table(results);
+                });
+                break;
+
+            // Adds
+            case 'Add Employee':
+                inq.prompt(addEmployee)
+                .then(employee => {
+                    db.query(`INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)`,
+                    employee.first, employee.last, employee.role, employee.manager,
+                    (err, results) => {
+                        console.log('\n');
+                        err
+                        ? console.log(err)
+                        : console.log(results);
+                    });
+                });
+                break;
+            case 'Add Role':
+                inq.prompt(addRole)
+                .then(role => {
+                    db.query('INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)', role.title, role.salary, role.department, (err, results) => {
+                        console.log('\n');
+                        err
+                        ? console.log(err)
+                        : console.log(results);
+                    });
+                });
+                break;
+            case 'Add Department':
+                inq.prompt(addDepartment)
+                .then(department => {
+                    db.query('INSERT INTO department (department_name) VALUES (?)', department.name, (err, results) => {
+                        console.log('\n');
+                        err
+                        ? console.log(err)
+                        : console.log(results);
+                    });
+                });
+                break;
+            // Removes
             default:
                 console.log('\n');
                 console.log("No valid answer selected.");
