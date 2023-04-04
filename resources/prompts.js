@@ -22,4 +22,52 @@ const mainPrompt = [
     },
 ];
 
-module.exports = { mainPrompt };
+const addEmployee = [
+    {
+        type: 'input',
+        name: 'first',
+        message: `Enter employee's first name.`,
+    },
+    {
+        type: 'input',
+        name: 'last',
+        message: `Enter employee's last name.`,
+    },
+    {
+        type: 'input',
+        name: 'role',
+        message: `Enter employee's role ID.`,
+    },
+    {
+        type: 'input',
+        name: 'manager',
+        message: `Enter employee's manager ID.`,
+        default: 'NULL',
+    },
+];
+
+const addRole = [
+    {
+        type: 'input',
+        name: 'title',
+        message: `Enter role title.`,
+    },
+    {
+        type: 'input',
+        name: 'salary',
+        message: `Enter role salary.`,
+    },
+    {
+        type: 'input',
+        name: 'department',
+        message: `Enter role department id.`,
+    },
+];
+
+const addDepartment = {
+    type: 'input',
+    name: 'name',
+    message: `Enter the department's name.`,
+};
+
+module.exports = { mainPrompt, addEmployee, addRole, addDepartment };
