@@ -96,6 +96,9 @@ const mainMenu = () => {
                     });
                 });
                 break;
+            case 'Quit':
+                process.exit(0);
+                break;
             default:
                 console.log('\n');
                 console.log("No valid answer selected.");
