@@ -59,7 +59,6 @@ const mainMenu = () => {
                     : console.table(results);
                 });
                 break;
-
             // Adds
             case 'Add Employee':
                 inq.prompt(addEmployee)
@@ -86,6 +85,7 @@ const mainMenu = () => {
                 });
                 break;
             case 'Add Department':
+                // only add that works for some reason. my bet is that the single variable.
                 inq.prompt(addDepartment)
                 .then(department => {
                     db.query('INSERT INTO department (department_name) VALUES (?)', department.name, (err, results) => {
@@ -96,7 +96,6 @@ const mainMenu = () => {
                     });
                 });
                 break;
-            // Removes
             default:
                 console.log('\n');
                 console.log("No valid answer selected.");
