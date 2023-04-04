@@ -27,25 +27,56 @@ app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
 
-inq
-    .prompt([
-        {
-            type: 'list',
-            name: 'main',
-            message: 'What would you like to do?',
-            choices: [
-                'View All Employees',
-                'Add Employee',
-                'Update Employee Role',
-                'View All Roles',
-                'Add Role',
-                'View All Departments',
-                'Add Department',
-                'Quit',
-                new inq.Separator(),
-            ],
-        },
-    ])
-    .then((answer) => {
-        console.log(answer.main);
+const mainMenu = () => {
+    inq.prompt(
+        [
+            {
+                type: 'list',
+                name: 'main',
+                message: 'What would you like to do?',
+                choices: [
+                    new inq.Separator(),
+                    'View All Employees',
+                    'Add Employee',
+                    'Update Employee Role',
+                    'View All Roles',
+                    'Add Role',
+                    'View All Departments',
+                    'Add Department',
+                    'Quit',
+                ],
+            },
+        ]
+    )
+    .then(answer => {
+        switch (answer.main) {
+            case 'View All Employees':
+                db.query('SELECT * from employee', (err, results) => {
+                    console.log('\n');
+                    err
+                    ? console.log(err)
+                    : console.table(results);
+                });
+                break;
+            case 'View All Roles':
+                db.query('SELECT * from role', (err, results) => {
+                    console.log('\n');
+                    err
+                    ? console.log(err)
+                    : console.table(results);
+                });
+                break;
+            default:
+                console.log('\n');
+                console.log("No valid answer selected.");
+                break;
+        }
+        main();
     });
+}
+
+function main() {
+    mainMenu();
+}
+
+main();
