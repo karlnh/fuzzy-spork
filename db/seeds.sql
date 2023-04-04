@@ -14,3 +14,14 @@ VALUES  ("Engineer", 80000, 1),
         ("Talent Management Specialist", 60000, 3),
         ("Network Administrator", 110000, 4),
         ("President", 300000, 2);
+
+INSERT INTO employee (first_name, last_name, role_id, manager_id)
+VALUES  ("Charlotte", "Roberts", 1, 5),
+        ("Zarif", "Toma", 2, 6),
+        ("Darcy", "Sweet", 3, 7),
+        ("Bianca", "Lima", 4, 8),
+        ("Bilqiz", "Masaev", 5, 9),
+        ("Tena", "Varga", 6, 9),
+        ("Aman", "Asmara", 7, 9),
+        ("Anna", "Kawai", 8, 9),
+        ("John", "Goodman", 9, null);
