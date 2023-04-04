@@ -1,7 +1,10 @@
 const express = require('express');
 const mysql = require('mysql2');
 const inq = require('inquirer');
+
 require('dotenv').config();
+
+const { mainPrompt } = require('./resources/prompts');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -28,26 +31,7 @@ app.listen(PORT, () => {
 });
 
 const mainMenu = () => {
-    inq.prompt(
-        [
-            {
-                type: 'list',
-                name: 'main',
-                message: 'What would you like to do?',
-                choices: [
-                    new inq.Separator(),
-                    'View All Employees',
-                    'Add Employee',
-                    'Update Employee Role',
-                    'View All Roles',
-                    'Add Role',
-                    'View All Departments',
-                    'Add Department',
-                    'Quit',
-                ],
-            },
-        ]
-    )
+    inq.prompt(mainPrompt)
     .then(answer => {
         switch (answer.main) {
             case 'View All Employees':
